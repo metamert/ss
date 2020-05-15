@@ -12,14 +12,14 @@ const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
 const BellButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
+  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('myCards')}>
     <Icon
       family="ArgonExtra"
       size={16}
-      name="bell"
+      name="basket"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-    <Block middle style={styles.notify} />
+   
   </TouchableOpacity>
 );
 
@@ -36,14 +36,7 @@ const BasketButton = ({isWhite, style, navigation}) => (
 );
 
 const SearchButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('myCards')}>
-    <Icon
-      size={16}
-      family="Galio"
-      name="search-zoom-in"
-      color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-  </TouchableOpacity>
+  <Button color="error" style={styles.but} onPress={()=>navigation.navigate("Home")}>Kategori Sayfasına Dön</Button>   
 );
 
 class Header extends React.Component {
@@ -69,8 +62,7 @@ class Header extends React.Component {
         ]);
         case 'Sepetim':
           return ([
-            <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-            <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
+            <Button color="error" style={styles.but} onPress={()=>navigation.navigate("Home")}>Kategori Sayfasına Dön</Button> 
           ]);
       case 'Deals':
         return ([
@@ -210,7 +202,7 @@ class Header extends React.Component {
           ]}
           {...props}
         />
-        
+         
       </Block>
     );
   }
@@ -286,7 +278,12 @@ const styles = StyleSheet.create({
     position:"absolute",
     left:5,
     color:"red"
+  },but:{
+    width:200,
+    position:"absolute",
+    right:0
   }
+  
 });
 
 export default withNavigation(Header);

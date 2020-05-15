@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView ,Alert,ToastAndroid,Text} from 'react-native';
 import { Block, theme,Button} from 'galio-framework';
-
+import {connect} from "react-redux"
 
 import { Card } from '../components';
 import articles from '../constants/articles';
@@ -19,14 +19,13 @@ class Home extends React.Component {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
        
-        <Block flex>
-          <Card item={articles[0]} horizontal  />
-          <Block flex row>
-            <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Card item={articles[2]}  />
-          </Block>
-          <Card item={articles[3]} horizontal />
-        <Button style={{marginTop:50,marginBottom:20}} onPress={()=>this.props.navigation.navigate('myCards')}> Sepete Git </Button>
+        <Block >
+{this.props.obj1.map(item=>  <Card key={item.id} item={item} style={styles.card}  />)}
+          
+        
+         
+            
+       
      
       
         </Block>
@@ -53,8 +52,15 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE,
   },
+ 
 
 
 });
 
-export default Home;
+const s=(state)=>(
+  {
+  obj1:state.cart.cartItems
+  }
+  )
+
+export default connect(s)(Home);

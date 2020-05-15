@@ -1,25 +1,40 @@
 import React from 'react'
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View,Text } from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View,Text ,Alert,AsyncStorage} from 'react-native';
 import {Card} from 'native-base';
 import {connect} from "react-redux"
 import {additem,removefull,removeitem,success} from "../redux/Card"
 import Icon from 'react-native-vector-icons/Feather';
- function Mycards({img,name,price,quantity,add,remove,removefull,success}) {
+ function Mycards(props) {
+
   function additem() {
-add({title:name,price,image:null,id:name})
+
     
   }  
-  function removeitem() {
-    remove({id:name})
-        
-      }  
+  const removeitem= async ()=> {
+    
+const Array=props.obj1
+
+const newArray=Array.filter(item=>item.id!==props.id)
+const sArray = JSON.stringify(newArray)
+try {
+
+  const sonuc=await AsyncStorage.setItem("mertyy121",sArray)
+  Alert.alert("silindi")
+  props.remove(newArray)
+} catch (error) {
+// Error saving data
+Alert.alert("error")
+
+}
+
+    }
 
 
       function removefullitem() {
-        removefull({id:name})
+        
             
           }  
-  console.log("render")
+
   return (
 
     
@@ -27,24 +42,17 @@ add({title:name,price,image:null,id:name})
               
           <Card  style={styles.cont}>
 <View style={styles.item1}>
-<Image source={img} style={{width:"100%",height:"100%"}}></Image>
+<Image source={{ uri: props.image }} style={{width:"100%",height:"100%"}}></Image>
 
 </View>
-<View style={styles.item1}><Text style={styles.fortext}>{name}</Text></View>
-
-<View style={styles.item2}>
-<Icon name="chevron-left" style={styles.arrowl} size={20}
-onPress={removeitem}
-></Icon>
-<Text>{quantity}</Text>
-<Icon name="chevron-right" style={styles.arrowr} size={20}
-onPress={additem}
-></Icon>
   
-  </View>
-<View style={styles.item5}><Text style={styles.fortext}>{price*quantity}$</Text></View>
+  <View style={styles.item1}><Text 
+  onPress={()=>props.navi.navigate("Add2",{id:props.id,image:props.image})}
+  style={styles.fortext2}>Ürünleri Güncellemek için Bas</Text></View>
+
+
 <View style={styles.item1}><Icon name="delete" style={styles.delete} size={24}
-onPress={removefullitem}
+onPress={removeitem}
 ></Icon></View>
 
           </Card>
@@ -81,7 +89,13 @@ justifyContent:"center" ,
    fortext:{
      textAlign:"center",
    
+   
     },
+    fortext2:{
+        textAlign:"center",
+        color:"blue"
+      
+       },
   delete:{textAlign:"center",color:"red"},
   arrowl:{
 color:"red",
@@ -109,4 +123,10 @@ success:()=>dispatch(success())
 
 })
 
-  export default connect(null,d)(React.memo(Mycards))
+const s=(state)=>(
+  {
+  obj1:state.cart.cartItems
+  }
+  )
+
+  export default connect(s,d)(React.memo(Mycards))

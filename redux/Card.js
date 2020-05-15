@@ -86,19 +86,17 @@ const INITIAL_STATE = {
       case "additem":
         return {
           ...state,
-          cartItems: addItemToCart(state.cartItems, action.payload)
+          cartItems: action.payload
         };
       case "removeitem":
         return {
           ...state,
-          cartItems: removeItemFromCart(state.cartItems, action.payload)
+          cartItems: action.payload
         };
       case "removefull":
         return {
           ...state,
-          cartItems: state.cartItems.filter(
-            cartItem => cartItem.id !== action.payload.id
-          )
+          cartItems: action.payload
         };
         case "success":
           return {

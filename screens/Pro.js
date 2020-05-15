@@ -1,105 +1,54 @@
 import React from 'react';
-import {ScrollView, ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, Linking ,View} from 'react-native';
-import { Block, Button, Text, theme } from 'galio-framework';
-import {Card} from 'native-base';
-import { selectCartItems ,selectCartTotal} from '../redux/selector';
-import img from "../assets/imgs/iskender.jpg"
-const { height, width } = Dimensions.get('screen');
-import { Images, argonTheme } from '../constants/';
-import {connect} from "react-redux"
-import {success} from "../redux/Card"
-import { HeaderHeight } from "../constants/utils";
-import { createStructuredSelector } from 'reselect';
-import Icon from 'react-native-vector-icons/Feather';
-import {firestore} from "../firebase/firebase"
-import Mcards from "../components/mycards"
+import { StyleSheet, Dimensions, ScrollView ,Alert,ToastAndroid,Text,Image,ImageResolvedAssetSource} from 'react-native';
+import { Block, theme,Button} from 'galio-framework';
 
-class Pro extends React.Component {
-constructor(props){
-super(props)
-this.state={
-  s:false
-}
-}
+import img from "../assets/imgs/menu.jpeg"
+import Card from '../components/kategoricard';
+import articles from '../constants/articles';
+const { width } = Dimensions.get('screen');
 
+class Home extends React.Component {
+ 
+ 
+        constructor(props) {
+          super(props);
+        
+       
+        this.state={
+            imgWidth:0, imgHeight: 0
 
-finish=()=>{
-let Array={}
-this.props.cartitems.map(item=>{
-  
+        }
+       
+        
+       
+        }
+        componentDidMount() {
+const {width,height}=Image.resolveAssetSource(img)
+const screenWidth = Dimensions.get('window').width
+const scaleFactor = width / screenWidth
+const imageHeight = height / scaleFactor
 
-Array[item.title]={urunAdı:item.title,adetmiktarı:item.quantity,fiyat:item.quantity*item.price}
-  
-  })
+              
+              this.setState({imgWidth:screenWidth, imgHeight: imageHeight})
 
-Array.siparisZamanı=new Date().toLocaleString()
-Array.adres="antalya / akdeniz üni"
+          
+          }
 
- firestore.collection('Siparisler').doc().set(Array).then(()=>{
-
-this.setState({s:true})
-
-setTimeout(() => {
-  this.setState({s:false})
-}, 2000);
-this.props.suc()
-
-}
-
- ).catch(e=>console.log(e))
-
-
-
-}
-
+ 
 
   render() {
-    const { navigation } = this.props;
-console.log("pro")
+  
+    
     return (
       <Block flex center style={styles.home}>
-      <ScrollView
+           <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-       
-{this.state.s?(<View>
+      <Image source={{ uri: this.props.props.route.params.item.ürünimage }} style={{
+width:"100%",
+height:this.state.imgHeight
 
-<Icon name="check-circle" size={200} style={styles.ss}></Icon>
-
-</View>):(
-
-
-<Block flex>
-
-{this.props.cartitems.map(item=>
-  
-  <Mcards key={item.title} img={item.image} name={item.title} price={item.price} quantity={item.quantity}></Mcards>
-  
-  )}
-   
-        
- 
-     
-<Button color="error" style={styles.ct} onPress={this.finish}>
-  
-  <Text style={styles.st}>
-  Siparişi tamamla  :  {
-
-this.props.total
-
-} $
-
-
-  </Text>
-</Button>
-    
-      </Block>
-    
-
-)}
-
-
-      
+      }}></Image>
       </ScrollView>
       </Block>
     );
@@ -108,45 +57,17 @@ this.props.total
 
 const styles = StyleSheet.create({
   home: {
-    width: width,    
+    width: width,
+        
   },
   articles: {
     width: width - theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE,
   },
-  item1:{
-
-display:"flex",
-justifyContent:"center",
-    flex:1,
-   
-  },
- fortext:{
-   textAlign:"center",
- 
-  },
-delete:{textAlign:"center",color:"red"},
-ct:{marginTop:50},
-st:{color:"white"},
-
-  cont:{
-    display:"flex",
-    flexDirection:"row",
-   height:100
-  },
-  ss:{
-    color:"green",
-    margin:50
-  }
-
+but:{
+  marginBottom:30
+}
 
 });
 
-const s=createStructuredSelector({
-  cartitems: selectCartItems,
-  total: selectCartTotal
-});
-const d=(dispatch)=>({
-suc:()=>dispatch(success())
-})
-export default connect(s,d)(Pro)
+export default Home;

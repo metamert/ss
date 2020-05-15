@@ -16,7 +16,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Home", 
     "Sepetim",
     "Profile",
-    "Account",
+    "Admin login",
    
   ];
   return (

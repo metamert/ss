@@ -1,38 +1,56 @@
 import iskender from "../assets/imgs/iskender.jpg"
-import salata from "../assets/imgs/salata.jpg"
+import salata from "../assets/imgs/salata.png"
 import cor from "../assets/imgs/corba.jpg"
-import ham from "../assets/imgs/hamburger.jpg"
+import ham from "../assets/imgs/hamburger.png"
 
 export default [
   {
     title: 'Çorba ',
-    price:"10",
+   
     image: cor,
-    cta: 'Sepete Ekle', 
-    horizontal: true
+    ürünler:{
+      mercimek:{fiyat:10,isim:"mercimek corbası"},
+      domates:{fiyat:12,isim:"domates corbası"}
+      
+         }
+
   },
   {
-    title: 'Hamburger',
-    price:"20",
+    title: 'FastFood',
+  
     image: ham,
-    cta: 'Sepete Ekle'
+    ürünler:{
+      hamburger:{fiyat:20,isim:"hamburger"},
+      patates:{fiyat:22,isim:"patates"}
+      
+         }
+    
+
+
   },
   {
-    title: 'Iskender',
-    price:"30",
+    title: 'Sıcak',
+  
     image: iskender,
-    cta: 'Sepete Ekle' 
+    ürünler:{
+      iskender:{fiyat:10,isim:"iskender"},
+      lahmacun:{fiyat:12,isim:"lahmacun"}
+      
+         }
+    
+
   },
   {
     title: 'Salata',
     image: salata,
-    price:"10",
-    cta: 'Sepete Ekle' 
+    ürünler:{
+      normal:{fiyat:10,isim:"normal"},
+      akdeniz:{fiyat:12,isim:"akdeniz"}
+      
+         }
+   
   },
-  {
-    title: 'Argon is a great free UI packag …',
-    image: 'https://images.unsplash.com/photo-1482686115713-0fbcaced6e28?fit=crop&w=1947&q=80',
-    cta: 'View article', 
-    horizontal: true
-  },
+ 
 ];
+
+

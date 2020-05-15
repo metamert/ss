@@ -10,28 +10,22 @@ import {connect} from "react-redux"
 class Card extends React.Component {
   constructor(props) {
     super(props);
+    const dimensions =Dimensions.get('window')
+    const imageHeight =Math.round(dimensions.width * 9 / 16)
+   const imageWidth =dimensions.width
     this.state = {
       toggle: false,
+    
+ imageHeight :imageHeight,
+ imageWidth :imageWidth,
     };
-  }
-
-additemtocard=()=>{
-  this.setState({toggle:true})
  
   
-  
-  
-  
+ 
+  }
 
-            setTimeout(() => {
   
-              this.props.add({...this.props.item,id:this.props.item.title})
-              this.setState({toggle:false})
-            }, 1200);
-        
-
-
-}
+  
 
 
   render() {
@@ -50,46 +44,26 @@ additemtocard=()=>{
     ];
 
 
-
     return (
 
 
 
 
 
-      <Block row={horizontal} card flex style={cardContainer} 
+      <Block  
      
       
       >
-        <TouchableWithoutFeedback>
-          <Block flex style={imgContainer}>
-            <Image source={item.image} style={imageStyles} />
-         
-          </Block>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback 
-        onPress={this.additemtocard
-        }
-        >
-          <Block flex space="between" style={styles.cardDescription}>
-            <View style={styles.cardContainer}>
-
-            <Text size={14} style={styles.cardTitle}>{item.title}</Text>
-            <Text size={14} style={styles.cardprice}>{item.price} $</Text>
-            
-            </View>
+        <TouchableWithoutFeedback  onPress={()=>navigation.navigate("Sepetim",{item:item})}>
           
-            <View style={styles.cardContainer}  >
-
-
-            <Text  size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.ACTIVE} bold >{item.cta}</Text>
-
-             {this.state.toggle&&<Icon name="checkcircle" size={16} style={{marginLeft:30,color:"#1EBEA5"}} />}
-
-</View>
-          </Block>
-      
          
+            <Image source={{ uri: item.kategoriimage }} style={{width:"100%",height:this.state.imageHeight,marginBottom:30}} />
+          
+         
+       
+        
+      
+          
         </TouchableWithoutFeedback>
       
       </Block>
@@ -112,13 +86,15 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
-    minHeight: 114,
-    marginBottom: 16
+
+    
   },
   cardTitle: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6
+    paddingBottom: 6,
+   
+   
   },
 cardContainer:{
 display:"flex",
@@ -132,9 +108,12 @@ flexDirection:"row"
     paddingBottom: 6
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2
+    padding: theme.SIZES.BASE / 2,
+
+    marginTop:8
   },
   imageContainer: {
+    
     borderRadius: 3,
     elevation: 1,
     overflow: 'hidden',
@@ -143,7 +122,7 @@ flexDirection:"row"
     // borderRadius: 3,
   },
   horizontalImage: {
-    height: 122,
+    height: 140,
     width: 'auto',
   },
   horizontalStyles: {
