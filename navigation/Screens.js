@@ -7,7 +7,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Kar from "../components/kategoricard"
 import { Block } from "galio-framework";
 import {connect} from "react-redux"
-import {additem} from "../redux/Card"
+import {additem,allow} from "../redux/Card"
+
 // screens
 import Home from "../screens/Home";
 import Onboarding from "../screens/Onboarding";
@@ -24,6 +25,7 @@ import CustomDrawerContent from "./Menu";
 import { Icon, Header } from "../components";
 import { argonTheme, tabs } from "../constants";
 import kategoriekle from "../components/kategoriekle";
+import { firestore } from "../components/firebase";
 
 const { width } = Dimensions.get("screen");
 
@@ -124,7 +126,7 @@ function ProfileStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Kategori Ekle"
+              title=""
               search
               options
               navigation={navigation}
@@ -217,9 +219,49 @@ function myCards(props) {
 
  function OnboardingStack(props) {
   React.useEffect(() => {
+    
+  
+
+
+
+
+
     const fetchData = async () => {
+
+
+      
+
+
+      const value= await AsyncStorage.getItem("count")
+      if(!value){
+      
+        await AsyncStorage.setItem("count","1")
+      
+      
+      }else{
+      if(Number(value)>5){
+        console.log("dogruuuuuuuuuuuuuuuu",Number(value)>4)
+      console.log("byummmmmmmmmmmmmmmmmummmm",value)
+      
+      const values=await AsyncStorage.setItem("mertyy121","[]")
+      
+    }else{
+      
+        console.log("numberrrrrrrrrrrrrrrrrrrrrrrrr",Number(value))
+        
+        let s=Number(value)+1
+        await AsyncStorage.setItem("count",`${s}`)
+      props.allow(true)  
+        }}
+
+
+
+
+
+
       const values=await AsyncStorage.getItem("mertyy121")
-      console.log(values)
+console.log("valuessssssssssssssssssssssssssssssss",values)
+      if(values)
       props.add(JSON.parse(values))    
  
     };
@@ -247,7 +289,8 @@ function myCards(props) {
 }
 const d=dispatch=>(
   {
-    add:(p)=>dispatch(additem(p))
+    add:(p)=>dispatch(additem(p)),
+    allow:(a)=>dispatch(allow(a))
   }
 )
 export default connect(null,d)(OnboardingStack)
@@ -287,7 +330,7 @@ function AppStack(props) {
       
      
       <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Admin login" component={Register} />
+      <Drawer.Screen name="Login" component={Register} />
       <Drawer.Screen name="Sepetim" component={myCards} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
     </Drawer.Navigator>

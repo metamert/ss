@@ -8,7 +8,15 @@ import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
 
 class Home extends React.Component {
- 
+  compare( a, b ) {
+    if ( a.nr < b.nr ){
+      return -1;
+    }
+    if ( a.nr > b.nr ){
+      return 1;
+    }
+    return 0;
+  }
 
 
   renderArticles = () => {
@@ -20,7 +28,7 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}>
        
         <Block >
-{this.props.obj1.map(item=>  <Card key={item.id} item={item} style={styles.card}  />)}
+{this.props.obj1.sort(this.compare).map(item=>  <Card key={item.id} item={item} style={styles.card}  />)}
           
         
          

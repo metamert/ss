@@ -8,7 +8,15 @@ import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
 
 class Homes extends React.Component {
- 
+  compare( a, b ) {
+    if ( Number(a.nr) < Number(b.nr) ){
+      return -1;
+    }
+    if ( Number(a.nr) > Number(b.nr) ){
+      return 1;
+    }
+    return 0;
+  }
 
 
   renderArticles = () => {
@@ -21,7 +29,7 @@ class Homes extends React.Component {
         contentContainerStyle={styles.articles}>
        
         <Block >
-{this.props.obj1.map(item=>  <Mycard key={item.id} image={item.kategoriimage} id={item.id} navi={this.props.navigation} ></Mycard>)}
+{this.props.obj1.sort(this.compare).map(item=>  <Mycard nr={item.nr} key={item.id} image={item.kategoriimage} id={item.id} navi={this.props.navigation} ></Mycard>)}
           
         
          
@@ -41,7 +49,7 @@ class Homes extends React.Component {
     return (
       <Block flex center style={styles.home}>
        {this.renderArticles()}
-<Button onPress={()=>this.props.navigation.navigate("Add1")}>Kategori Ekle</Button>
+<Button onPress={()=>this.props.navigation.navigate("Add1")} style={{marginBottom:20}}>Kategorie Hinzufügen</Button>
       </Block>
     );
   }

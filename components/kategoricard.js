@@ -98,7 +98,7 @@ const sArray = JSON.stringify(Array)
   try {
 
     const sonuc=await AsyncStorage.setItem("mertyy121",sArray)
-    Alert.alert("ürün resmi değiştirildi")
+    Alert.alert("Success")
     this.props.add(Array)
   } catch (error) {
   // Error saving data
@@ -121,9 +121,9 @@ console.log(this.props.route.params)
     return (
       <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
      <Image source={{ uri: this.props.route.params.image }} style={{width:200,height:200}}></Image>
-     <Text>BU KATEGORİNİN ÜRÜN RESMİNİ DEĞİŞTİR</Text>
-        <Button   onPress={this._pickImage2} > Ürün resmi seç</Button>
-      {this.state.ürünimage&& <Button style={{margin:30}} color="error"  onPress={this.submit} > Ekle</Button>}
+     <Text> Bilder von Kategorie ändern</Text>
+        <Button   onPress={this._pickImage2} > Bild ändern</Button>
+      {this.state.ürünimage&& <Button style={{margin:30}} color="error"  onPress={this.submit} > Hinzufügen</Button>}
       </View>
     );
   }

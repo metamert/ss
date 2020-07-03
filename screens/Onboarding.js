@@ -12,7 +12,7 @@ const { height, width } = Dimensions.get("screen");
 
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
-import onbo from "../assets/imgs/onbo.png"
+import onbo from "../assets/back.png"
 class Onboarding extends React.Component {
   render() {
     const { navigation } = this.props;
@@ -39,7 +39,7 @@ class Onboarding extends React.Component {
                   onPress={() => navigation.navigate("App")}
                   textStyle={{ color:"white" }}
                 >
-                Başla
+              SPEISEKARTE
                 </Button>
               </Block>
           </Block>
@@ -60,17 +60,19 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
+    display:"absolute",
+    bottom:50,
+    width: "100%",
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0
   },
   logo: {
-    width: 400,
-    height: 400,
-    zIndex: 2,
-    position: 'relative',
-    marginTop: '-50%'
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+    position: 'absolute',
+   
   },
   title: {
     marginTop:'-5%'

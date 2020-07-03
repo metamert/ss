@@ -4,7 +4,8 @@ import {
   ImageBackground,
   Dimensions,
   StatusBar,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  AsyncStorage
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 
@@ -22,8 +23,10 @@ this.state={name:"",password:""}
 handle=(name, value)=> {
   this.setState(() => ({ [name]: value }));
 }
-onsubmit=()=>{
-  if(this.state.name==="admin"&&this.state.password==="123"){
+onsubmit=async ()=>{
+  let s=await AsyncStorage.getItem("ss") 
+console.log("sssssssss",s)
+  if(this.state.name==="admin"&&this.state.password===s){
 console.log(true)
     this.props.navigation.navigate("Profile")
 
@@ -126,7 +129,7 @@ console.log(true)
                     <Block middle>
                       <Button color="primary" style={styles.createButton} onPress={this.onsubmit}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                        Admine Giriş Yap
+                        LOGIN
                         </Text>
                       </Button>
                     </Block>

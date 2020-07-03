@@ -55,14 +55,10 @@ class Header extends React.Component {
     }
 
     switch (title) {
-      case 'Home':
-        return ([
-          <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-        ]);
+
         case 'Sepetim':
           return ([
-            <Button color="error" style={styles.but} onPress={()=>navigation.navigate("Home")}>Kategori Sayfasına Dön</Button> 
+            <Button color="error" style={styles.but} onPress={()=>navigation.navigate("Home")}>     Zurück zur Kategorien</Button> 
           ]);
       case 'Deals':
         return ([
@@ -79,11 +75,8 @@ class Header extends React.Component {
           <BellButton key='chat-deals' navigation={navigation} isWhite={white} />,
           <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
         ]);
-      case 'Profile':
-        return ([
-          <BellButton key='chat-profile' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
-        ]);
+    
+        
       case 'Product':
         return ([
           <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
@@ -180,7 +173,7 @@ class Header extends React.Component {
       <Block style={headerStyles}>
         <NavBar
           back={false}
-          title={title}
+          title={title==="Home"?"Home":""}
           style={navbarStyles}
           transparent={transparent}
           right={this.renderRight()}
@@ -188,7 +181,7 @@ class Header extends React.Component {
           left={
             <Icon 
               name={back ? 'chevron-left' : "menu"} family="entypo" 
-              size={20} onPress={this.handleLeftPress} 
+              size={40} onPress={this.handleLeftPress} 
               color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
               style={{ marginTop: 2 }}
             />
@@ -217,6 +210,7 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft:30
   },
   navbar: {
     paddingVertical: 0,

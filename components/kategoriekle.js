@@ -3,6 +3,7 @@ import {  Image, View,AsyncStorage ,StyleSheet,Text,Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {Button} from "galio-framework"
 import Constants from 'expo-constants';
+import {  Icon, Input } from "./";
 import * as Permissions from 'expo-permissions';
 import {connect} from "react-redux"
 import {additem} from "../redux/Card"
@@ -12,7 +13,7 @@ import {additem} from "../redux/Card"
   constructor(p){
     super(p)
     this.state = {
-    
+val:Math.floor(Math.random() * Math.floor(5)),    
       kategoriimage: null,
       ürünimage:null
     };
@@ -91,15 +92,16 @@ newAll.push(
   {
   id:Math.floor(Math.random() * 39000),
   kategoriimage:this.state.kategoriimage,
-  ürünimage:this.state.ürünimage
-  
+  ürünimage:this.state.ürünimage,
+  nr:this.state.val
   })
 
 
 const eklenecek=JSON.stringify(newAll)
 try {
+  console.log("buuuuuu",newAll.nr)
   await AsyncStorage.setItem("mertyy121",eklenecek)
-  Alert.alert("eklendi1")
+  Alert.alert("Success")
   this.props.add(newAll)
 } catch (error) {
 // Error saving data
@@ -113,15 +115,15 @@ Alert.alert("error")
 Array.push({
   id:Math.floor(Math.random() * 39000),
   kategoriimage:this.state.kategoriimage,
-  ürünimage:this.state.ürünimage
-  
+  ürünimage:this.state.ürünimage,
+  nr:this.state.val
   })
 const sArray = JSON.stringify(Array)
 
   try {
-
+console.log("buuuuuu",Array.nr)
     const sonuc=await AsyncStorage.setItem("mertyy121",sArray)
-    Alert.alert("eklendi11")
+    Alert.alert("Success")
     this.props.add(Array)
   } catch (error) {
   // Error saving data
@@ -140,12 +142,27 @@ const sArray = JSON.stringify(Array)
 
   render() {
     let { image,getir } = this.state;
-
+console.log(this.state.val)
     return (
       <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{margin:30}} onPress={this._pickImage} >Kategori resmi seç</Button>
-        <Button   onPress={this._pickImage2} > Ürün resmi seç</Button>
-      {this.state.ürünimage&&this.state.kategoriimage&& <Button style={{margin:30}} color="error"  onPress={this.submit} > Ekle</Button>}
+         <Input
+                        borderless
+                        placeholder="Nr"
+                        name="name"
+                        onChangeText={(txt) => this.setState({val: txt})}
+                        iconContent={
+                          <Icon
+                            size={16}
+                         
+                            name="hat-3"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
+        <Button style={{margin:30}} onPress={this._pickImage} >Bilder von Kategorie ändern</Button>
+        <Button   onPress={this._pickImage2} > Bild ändern</Button>
+      {this.state.ürünimage&&this.state.kategoriimage&& <Button style={{margin:30}} color="error"  onPress={this.submit} >Hinzufügen</Button>}
       </View>
     );
   }
@@ -157,7 +174,15 @@ const styles = StyleSheet.create({
   
   but:{
     marginTop:20
-  }
+  },
+  inputIcons: {
+    marginRight: 12
+  },
+  passwordCheck: {
+    paddingLeft: 15,
+    paddingTop: 13,
+    paddingBottom: 30
+  },
 });
 
 const d=(dispatch)=>({

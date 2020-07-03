@@ -14,9 +14,8 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const insets = useSafeArea();
   const screens = [
     "Home", 
-    "Sepetim",
-    "Profile",
-    "Admin login",
+    
+    "Login",
    
   ];
   return (

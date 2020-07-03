@@ -4,7 +4,14 @@ type:"additem",
 payload:item
     }
 )
+export const allow=(item)=>(
+{
+type:"allow",
+payload:item
 
+}
+
+)
 
 export const removeitem=(item)=>(
 {
@@ -72,7 +79,8 @@ const sum=0;
 /* ınıtal_state */
 
 const INITIAL_STATE = {
-    total:0,
+  allow:false,  
+  total:0,
     cartItems: []
   };
   
@@ -103,6 +111,13 @@ const INITIAL_STATE = {
             ...state,
             cartItems:[]
           };
+
+          case "allow":
+            return{
+...state,
+allow:action.payload
+
+            }
       default:
         return state;
     }

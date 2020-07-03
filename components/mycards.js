@@ -19,7 +19,7 @@ const sArray = JSON.stringify(newArray)
 try {
 
   const sonuc=await AsyncStorage.setItem("mertyy121",sArray)
-  Alert.alert("silindi")
+  Alert.alert("deleted")
   props.remove(newArray)
 } catch (error) {
 // Error saving data
@@ -48,8 +48,10 @@ Alert.alert("error")
   
   <View style={styles.item1}><Text 
   onPress={()=>props.navi.navigate("Add2",{id:props.id,image:props.image})}
-  style={styles.fortext2}>Ürünleri Güncellemek için Bas</Text></View>
-
+  style={styles.fortext2}> Produkt Aktualisieren</Text></View>
+  <View style={styles.item1}><Text 
+  
+  style={styles.fortext2}>nr :{props.nr}</Text></View>
 
 <View style={styles.item1}><Icon name="delete" style={styles.delete} size={24}
 onPress={removeitem}
